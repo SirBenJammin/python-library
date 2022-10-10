@@ -56,7 +56,7 @@ class StaticList:
             version=3,
             encoding="gzip",
         )
-        return response.json()
+        return response
 
     def update(self) -> Dict:
         """Update the metadata in a static list
@@ -124,6 +124,18 @@ class StaticList:
         payload = response.json()
         return self.from_payload(payload, self.airship)
 
+    def status(self):
+        """
+        Get Status about the static list
+
+        :return: urbanairship.StaticList objects
+        """
+
+        url = self.airship.urls.get('lists_url') + self.name
+        response = self.airship._request('GET', None, url, version=3)
+        payload = response
+        return payload
+
     def delete(self) -> Response:
         """
         Delete the static list
@@ -183,7 +195,7 @@ class GzipCompressReadStream(object):
 
     def read(self, size):
         while len(self.__buf) < size:
-            chunk_of_file = self.__input.read(CHUNK)
+            chunk_of_file = self.__input.read(CHUNK).encode()
             if not chunk_of_file:
                 self.__gzip.close()
                 self.is_finished = True

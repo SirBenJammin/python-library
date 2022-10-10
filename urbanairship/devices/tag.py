@@ -104,7 +104,7 @@ class ChannelTags(object):
         response = self._airship._request(
             "POST", body, self.url, "application/json", version=3
         )
-        return response.json()
+        return response
 
 
 class OpenChannelTags(object):
