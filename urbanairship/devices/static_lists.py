@@ -124,18 +124,6 @@ class StaticList:
         payload = response.json()
         return self.from_payload(payload, self.airship)
 
-    def status(self):
-        """
-        Get Status about the static list
-
-        :return: urbanairship.StaticList objects
-        """
-
-        url = self.airship.urls.get('lists_url') + self.name
-        response = self.airship._request('GET', None, url, version=3)
-        payload = response
-        return payload
-
     def delete(self) -> Response:
         """
         Delete the static list
